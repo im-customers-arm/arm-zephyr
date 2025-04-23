@@ -3,7 +3,7 @@ name: Create a Release
 on:
   push:
     branches:
-      - Siva_ARM
+      - v_Siva_ARM
 
 permissions:
   contents: read
