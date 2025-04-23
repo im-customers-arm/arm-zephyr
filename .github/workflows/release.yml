@@ -2,9 +2,8 @@ name: Create a Release
 
 on:
   push:
-    tags:
-      - 'v*'
-      - '!v*rc*'
+    branches:
+      - Siva_ARM
 
 permissions:
   contents: read
