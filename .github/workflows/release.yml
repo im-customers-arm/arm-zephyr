@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-24.04
+    runs-on: ["ARM64", "ubuntu-latest"]
     permissions:
       contents: write # to create GitHub release entry
     steps:
