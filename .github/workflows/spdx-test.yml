@@ -44,27 +44,64 @@ jobs:
           path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
 # mychanges
-      - name: Download old SPDX from Release v4.1.0
+      # - name: Download old SPDX from Release v4.1.0
+      #   run: |
+      #     mkdir old_spdx
+      #     cd old_spdx
+      #     gh release download v4.1.0-rc2 --pattern "zephyr-v4.1.0.spdx"
+      #     pwd
+      #     ls -al
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Download SPDX from latest Release
         run: |
-          mkdir old_spdx
+          mkdir -p old_spdx
           cd old_spdx
-          gh release download v4.1.0-rc2 --pattern "zephyr-v4.1.0.spdx"
+
+          # Get latest release tag name
+          latest_release_tag=$(gh release view --json tagName --jq .tagName)
+
+          echo "Latest release is: $latest_release_tag"
+
+          # Download SPDX file from latest release
+          gh release download "$latest_release_tag" --pattern "*.spdx"
+
           pwd
           ls -al
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload spdx
+      - name: Upload old spdx
         uses: actions/upload-artifact@v4
         with:
           name: zephyr-v4.1.0.spdx
           path: old_spdx/zephyr-v4.1.0.spdx
 
-      - name: Upload spdx
-        uses: actions/upload-artifact@v4
-        with:
-          name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
-          path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+
+      - name: Upload/replace SPDX if file already exists
+        run: |
+          if [ -f zephyr-${{ steps.get_version.outputs.VERSION }}.spdx ]; then
+            echo "File exists. Uploading..."
+            gh api \
+              -X POST \
+              -H "Accept: application/vnd.github+json" \
+              /repos/${{ github.repository }}/actions/artifacts \
+              -F name="zephyr-${{ steps.get_version.outputs.TRIMMED_VERSION }}" \
+              -F file=@zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+          else
+            echo "No SPDX file to upload."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      # - name: Upload spdx
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+      #     path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -74,6 +111,7 @@ jobs:
 
       - name: Download SPDX Tools
         run: |
+          pwd
           curl -LO https://github.com/spdx/tools-java/releases/download/v2.0.0/tools-java-2.0.0.zip
           unzip tools-java-2.0.0.zip
 
