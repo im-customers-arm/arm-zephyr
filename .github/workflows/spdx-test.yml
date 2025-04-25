@@ -60,35 +60,35 @@ jobs:
           name: zephyr-v4.1.0.spdx
           path: old_spdx/zephyr-v4.1.0.spdx
 
-      # - name: Upload spdx
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
-      #     path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+      - name: Upload spdx
+        uses: actions/upload-artifact@v4
+        with:
+          name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+          path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
-      # - name: Set up Java
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: 'temurin'
-      #     java-version: '17'  
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'  
 
-      # - name: Download SPDX Tools
-      #   run: |
-      #     curl -LO https://github.com/spdx/tools-java/releases/download/v2.0.0/tools-java-2.0.0.zip
-      #     unzip tools-java-2.0.0.zip
+      - name: Download SPDX Tools
+        run: |
+          curl -LO https://github.com/spdx/tools-java/releases/download/v2.0.0/tools-java-2.0.0.zip
+          unzip tools-java-2.0.0.zip
 
-      # - name: Run SPDX CompareDocs
-      #   run: |
-      #     pwd
-      #     ls -al
-      #     ls -al tools-java-2.0.0-jar-with-dependencies.jar
-      #     java -jar tools-java-2.0.0-jar-with-dependencies.jar \
-      #       CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-<release v4.1.0>.spdx 
+      - name: Run SPDX CompareDocs
+        run: |
+          pwd
+          ls -al
+          ls -al tools-java-2.0.0-jar-with-dependencies.jar
+          java -jar tools-java-2.0.0-jar-with-dependencies.jar \
+            CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.1.0.spdx 
 
-      # - name: Upload comparison result
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: spdx-comparison-output
-      #     path: tests/sample_spdx/spdx_compare_out.xlsx
+      - name: Upload comparison result
+        uses: actions/upload-artifact@v4
+        with:
+          name: spdx-comparison-output
+          path: tests/sample_spdx/spdx_compare_out.xlsx
 
 
