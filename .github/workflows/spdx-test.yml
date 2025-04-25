@@ -28,17 +28,17 @@ jobs:
           echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           echo "TRIMMED_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      # - name: REUSE Compliance Check
-      #   uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5.0.0
-      #   with:
-      #     args: spdx -o zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+      - name: REUSE Compliance Check
+        uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5.0.0
+        with:
+          args: spdx -o zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
-      # - name: upload-results
-      #   uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-      #   continue-on-error: true
-      #   with:
-      #     name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
-      #     path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+      - name: upload-results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        continue-on-error: true
+        with:
+          name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+          path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
 # mychanges
       - name: Download old SPDX from Release v4.1.0
