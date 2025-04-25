@@ -6,7 +6,7 @@ on:
       - siva_arm
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   compare-spdx:
@@ -46,6 +46,8 @@ jobs:
           gh release download v4.1.0 --pattern "zephyr-v4.1.0.spdx"
           pwd
           ls -al
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload spdx
         uses: actions/upload-artifact@v4
