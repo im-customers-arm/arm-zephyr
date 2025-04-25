@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
 
-          
+
 # Get the spdx file from release v4.1.0 to use in Run SPDX CompareDocs
 
       - name: Get the version
@@ -45,7 +45,7 @@ jobs:
         run: |
           mkdir old_spdx
           cd old_spdx
-          gh release download v4.1.0 --pattern "zephyr-v4.1.0.spdx"
+          gh release download v4.1.0-rc2 --pattern "zephyr-v4.1.0.spdx"
           pwd
           ls -al
         env:
