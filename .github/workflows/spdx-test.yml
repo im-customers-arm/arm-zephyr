@@ -59,6 +59,7 @@ jobs:
         run: |
           mkdir -p old_spdx
           cd old_spdx
+          ls -al
 
           # Get latest release tag name
           latest_release_tag=$(gh release view --json tagName --jq .tagName)
@@ -80,21 +81,21 @@ jobs:
           path: old_spdx/zephyr-v4.1.0.spdx
 
 
-      - name: Upload/replace SPDX if file already exists
-        run: |
-          if [ -f zephyr-${{ steps.get_version.outputs.VERSION }}.spdx ]; then
-            echo "File exists. Uploading..."
-            gh api \
-              -X POST \
-              -H "Accept: application/vnd.github+json" \
-              /repos/${{ github.repository }}/actions/artifacts \
-              -F name="zephyr-${{ steps.get_version.outputs.TRIMMED_VERSION }}" \
-              -F file=@zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
-          else
-            echo "No SPDX file to upload."
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Upload/replace SPDX if file already exists
+      #   run: |
+      #     if [ -f zephyr-${{ steps.get_version.outputs.VERSION }}.spdx ]; then
+      #       echo "File exists. Uploading..."
+      #       gh api \
+      #         -X POST \
+      #         -H "Accept: application/vnd.github+json" \
+      #         /repos/${{ github.repository }}/actions/artifacts \
+      #         -F name="zephyr-${{ steps.get_version.outputs.VERSION }}" \
+      #         -F file=@zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+      #     else
+      #       echo "No SPDX file to upload."
+      #     fi
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
       # - name: Upload spdx
