@@ -125,6 +125,7 @@ jobs:
           java -jar tools-java-2.0.0-jar-with-dependencies.jar \
             CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx 
 
+            
       - name: Upload comparison result
         uses: actions/upload-artifact@v4
         with:
