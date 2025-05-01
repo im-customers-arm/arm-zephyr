@@ -10,7 +10,9 @@ permissions:
 
 jobs:
   compare-spdx:
-    runs-on: ubuntu-24.04-16core
+    runs-on:
+      group: ubuntu-runners
+      labels: ubuntu-20.04-16core
     permissions:
       contents: write # to create GitHub release entry
     steps:
