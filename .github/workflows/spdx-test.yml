@@ -43,6 +43,7 @@ jobs:
           name: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
           path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
+          
 # mychanges
       # - name: Download old SPDX from Release v4.2.0
       #   run: |
