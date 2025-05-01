@@ -20,7 +20,7 @@ jobs:
 
 
 
-# Get the spdx file from release v4.1.0 to use in Run SPDX CompareDocs
+# Get the spdx file from release v4.2.0 to use in Run SPDX CompareDocs
 
       - name: Get the version
         id: get_version
@@ -44,11 +44,11 @@ jobs:
           path: zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
 
 # mychanges
-      # - name: Download old SPDX from Release v4.1.0
+      # - name: Download old SPDX from Release v4.2.0
       #   run: |
       #     mkdir old_spdx
       #     cd old_spdx
-      #     gh release download v4.1.0-rc2 --pattern "zephyr-v4.1.0.spdx"
+      #     gh release download v4.2.0-rc2 --pattern "zephyr-v4.2.0.spdx"
       #     pwd
       #     ls -al
       #   env:
@@ -77,8 +77,8 @@ jobs:
       - name: Upload old spdx
         uses: actions/upload-artifact@v4
         with:
-          name: zephyr-v4.1.0.spdx
-          path: zephyr-v4.1.0.spdx
+          name: zephyr-v4.2.0.spdx
+          path: zephyr-v4.2.0.spdx
 
 
       # - name: Upload/replace SPDX if file already exists
@@ -122,7 +122,7 @@ jobs:
           ls -al
           ls -al tools-java-2.0.0-jar-with-dependencies.jar
           java -jar tools-java-2.0.0-jar-with-dependencies.jar \
-            CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.1.0.spdx 
+            CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx 
 
       - name: Upload comparison result
         uses: actions/upload-artifact@v4
