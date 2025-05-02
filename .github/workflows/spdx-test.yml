@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   compare-spdx:
-    runs-on: ubuntu-24.04
+    runs-on: zephyr-specific
     permissions:
       contents: write # to create GitHub release entry
     steps:
