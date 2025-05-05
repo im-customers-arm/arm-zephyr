@@ -32,6 +32,11 @@ jobs:
           echo "TRIMMED_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
+      - name: Check runner RAM
+        run: |
+          echo "Memory info:"
+          free -h || vm_stat || top -l 1 | grep PhysMem || echo "Command not found"
+
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5.0.0
         with:
@@ -134,7 +139,7 @@ jobs:
           pwd
           ls -al
           ls -al tools-java-2.0.0-jar-with-dependencies.jar
-          java -Xmx2G -jar tools-java-2.0.0-jar-with-dependencies.jar \
+          java -Xmx4G -jar tools-java-2.0.0-jar-with-dependencies.jar \
             CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx
 
             
