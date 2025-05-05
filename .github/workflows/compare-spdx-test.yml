@@ -3,7 +3,7 @@ name: SPDX
 on:
   push:
     branches:
-      - sssiva_arm
+      - siva_arm
 
 permissions:
   contents: write
@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: write # to create GitHub release entry
 
-
+      
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:

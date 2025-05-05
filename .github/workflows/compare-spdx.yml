@@ -3,12 +3,12 @@ name: SPDX
 on:
   push:
     branches:
-      - siva_arm
+      - sssiva_arm
 
 permissions:
   contents: write
 
-jobs:
+jobs: 
   compare-spdx:
     runs-on: zephyr-specific
     permissions:
