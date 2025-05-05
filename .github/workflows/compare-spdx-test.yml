@@ -32,10 +32,26 @@ jobs:
           echo "TRIMMED_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
-      - name: Check runner RAM
+      - name: Check Memory
         run: |
           echo "Memory info:"
           free -h || vm_stat || top -l 1 | grep PhysMem || echo "Command not found"
+
+
+      - name: Check Runner RAM
+        run: |
+          echo "Runner Info:"
+          if command -v free > /dev/null; then
+            free -h
+          elif command -v vm_stat > /dev/null; then
+            vm_stat
+            echo
+            echo "Approx RAM (MB):"
+            pagesize=$(pagesize)
+            vm_stat | grep "Pages free" | awk -v ps=$pagesize '{print $3 * ps / 1024 / 1024 " MB"}'
+          else
+            echo "No memory check command found."
+          fi
 
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5.0.0
