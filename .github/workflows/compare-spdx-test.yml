@@ -150,6 +150,14 @@ jobs:
       #       CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx
 
 
+      - name: Verify spdx files
+        run: |
+          echo "Verifying zephyr-${{ steps.get_version.outputs.VERSION }}.spdx" 
+          java -jar tools-java-2.0.0-jar-with-dependencies.jar Verify zephyr-${{ steps.get_version.outputs.VERSION }}.spdx
+          echo "Verifying zephyr-v4.2.0.spdx" 
+          java -jar tools-java-2.0.0-jar-with-dependencies.jar Verify zephyr-v4.2.0.spdx
+
+
       - name: Run SPDX CompareDocs
         run: |
           pwd
