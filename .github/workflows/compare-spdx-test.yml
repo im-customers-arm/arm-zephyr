@@ -118,13 +118,24 @@ jobs:
           curl -LO https://github.com/spdx/tools-java/releases/download/v2.0.0/tools-java-2.0.0.zip
           unzip tools-java-2.0.0.zip
 
+      # - name: Run SPDX CompareDocs
+      #   run: |
+      #     pwd
+      #     ls -al
+      #     ls -al tools-java-2.0.0-jar-with-dependencies.jar
+      #     java -jar tools-java-2.0.0-jar-with-dependencies.jar \
+      #       CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx 
+      #     java -Xmx2G -jar tools-java-2.0.0-jar-with-dependencies.jar \
+      #       CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx
+
+
       - name: Run SPDX CompareDocs
         run: |
           pwd
           ls -al
           ls -al tools-java-2.0.0-jar-with-dependencies.jar
-          java -jar tools-java-2.0.0-jar-with-dependencies.jar \
-            CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx 
+          java -Xmx2G -jar tools-java-2.0.0-jar-with-dependencies.jar \
+            CompareDocs spdx_compare_out.xlsx zephyr-${{ steps.get_version.outputs.VERSION }}.spdx zephyr-v4.2.0.spdx
 
             
       - name: Upload comparison result
