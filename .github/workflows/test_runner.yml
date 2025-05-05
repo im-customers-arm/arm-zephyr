@@ -1,0 +1,10 @@
+name: Quick Runner Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-runner:
+    runs-on: zephyr-specific
+    steps:
+      - run: echo "Runner picked up the job!"
