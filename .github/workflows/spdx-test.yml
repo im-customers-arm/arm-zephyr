@@ -19,7 +19,6 @@ jobs:
           fetch-depth: 0
 
 
-
 # Get the spdx file from release v4.2.0 to use in Run SPDX CompareDocs
 
       - name: Get the version
